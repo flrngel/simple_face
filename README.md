@@ -8,5 +8,5 @@ $ docker build -t face .
 # execute once
 $ docker run -it --rm -v `pwd`:/app --link redis:redis face python app.py
 # execute background
-docker run -d --rm -v `pwd`:/app --link redis:redis face ./background.sh
+$ docker run -d --rm -v `pwd`:/app --link redis:redis face ./background.sh
 ```
