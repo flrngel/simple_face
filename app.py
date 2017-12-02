@@ -35,7 +35,6 @@ for cam_i in range(camera_nums):
     encodings = face_recognition.api.face_encodings(image[si:sj, ei:ej])
     if len(encodings) == 0:
       continue
-    face_locations_final.append(face_location)
     now_face = encodings[0]
     if len(face_db) > 0:
       compare_face = face_recognition.api.compare_faces(face_db, now_face)
@@ -60,6 +59,8 @@ for cam_i in range(camera_nums):
       face_db.append(now_face)
       r.zadd(f'{i}:history', now_time, now_time)
       io.imsave(f'faces/{i}.jpg', image[si:sj, ei:ej])
+
+    face_locations_final.append({i: face_location})
 
   r.set(f'bbox:{cam_i}', json.dumps(face_locations_final))
 
