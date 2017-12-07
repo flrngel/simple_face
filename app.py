@@ -31,13 +31,14 @@ for cam_i in range(camera_nums):
   face_locations_final = []
 
   for face_location in face_locations:
-    si, sj, ei, ej = face_location
+    si, ej, sj, ei = face_location
     encodings = face_recognition.api.face_encodings(image[si:sj, ei:ej])
     if len(encodings) == 0:
       continue
     now_face = encodings[0]
+    r.zadd('bbox_history', now_time, ','.join([si, sj, ei, ej]))
     if len(face_db) > 0:
-      compare_face = face_recognition.api.compare_faces(face_db, now_face)
+      compare_face = face_recognition.api.compare_faces(face_db, now_face, tolerance=0.3)
       if True in compare_face:
         i = compare_face.index(True)
         history = r.zrevrange(f'{i}:history', 0, 1)
