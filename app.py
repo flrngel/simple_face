@@ -36,7 +36,7 @@ for cam_i in range(camera_nums):
     if len(encodings) == 0:
       continue
     now_face = encodings[0]
-    r.zadd('bbox_history', now_time, ','.join([si, sj, ei, ej]))
+    r.zadd('bbox_history', now_time, ','.join([str(si), str(sj), str(ei), str(ej)]))
     if len(face_db) > 0:
       compare_face = face_recognition.api.compare_faces(face_db, now_face, tolerance=0.3)
       if True in compare_face:
