@@ -9,7 +9,7 @@ import numpy as np
 
 r = redis.StrictRedis.from_url(url='redis://redis')
 
-camera_nums = 1
+camera_nums = 3
 visit_margin = 60 * 60 * 2
 
 def get_timestamp():
